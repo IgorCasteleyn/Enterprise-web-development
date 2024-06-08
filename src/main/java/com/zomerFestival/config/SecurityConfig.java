@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/access-denied").permitAll()
 
                         .anyRequest().hasAnyRole("USER", "ADMIN"))
-                .formLogin(form -> form.defaultSuccessUrl("/sport", true)
+                .formLogin(form -> form.defaultSuccessUrl("/home", true)
                         .loginPage("/login"))
                 .exceptionHandling(e -> e.accessDeniedPage("/access-denied"));
         ;

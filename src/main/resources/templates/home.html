@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="#{home.page.title}"></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <p>DIT IS HOME</p>
+    <p th:if="${#authorization.expression('hasRole(''USER'')')}">Voor een user</p>
+    <p th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Voor een admin</p>
+    
+  </body>
+</html>
