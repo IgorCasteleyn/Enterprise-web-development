@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 
 @Controller
-@RequestMapping("/genre")
-public class GenreController {
+@RequestMapping("/regio")
+public class RegioController {
 
   @Autowired
   private FestivalService festivalService;
@@ -29,10 +29,10 @@ public class GenreController {
   private TicketService ticketService;
 
   @Autowired
-  private GenreService genreService;
+  private RegioService regioService;
 
-  @GetMapping("/{genreId}")
-  public String getMethodName(@PathVariable Integer genreId, Model model) {
+  @GetMapping("/{regioId}")
+  public String getMethodName(@PathVariable Integer regioId, Model model) {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -43,12 +43,12 @@ public class GenreController {
 
     model.addAttribute("user", user);
     model.addAttribute("ticketsByUser", ticketsByUser);
-    model.addAttribute("festivals", festivalService.getAllFestivalsByGenreId(genreId));
-    model.addAttribute("genre", genreService.getGenreById(genreId));
+    model.addAttribute("festivals", festivalService.getAllFestivalsByRegioId(regioId));
+    model.addAttribute("regio", regioService.getRegioById(regioId));
     model.addAttribute("festivalService", festivalService);
     model.addAttribute("ticketService", ticketService);
 
-    return "genre";
+    return "regio";
   }
 
 }

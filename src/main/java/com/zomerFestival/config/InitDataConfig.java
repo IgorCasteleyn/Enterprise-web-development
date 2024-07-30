@@ -38,6 +38,9 @@ public class InitDataConfig implements CommandLineRunner {
         @Autowired
         private TicketRepository ticketRepository;
 
+        @Autowired
+        private OptredenRepository OptredenRepository;
+
         @Override
         public void run(String... args) {
 
@@ -117,6 +120,90 @@ public class InitDataConfig implements CommandLineRunner {
                                 danceSub1, danceSub2, danceSub3, rapSub1, rapSub2, rapSub3, jazzSub1, jazzSub2,
                                 jazzSub3));
 
+                // Optredens
+                Optreden Optreden1 = Optreden.builder()
+                                .naam("The Rolling Stones")
+                                .startuur(LocalTime.of(20, 0))
+                                .subgenres(Arrays.asList(rockSub1, rockSub2))
+                                .festivalNummer1(3000)
+                                .festivalNummer2(3500)
+                                .build();
+
+                Optreden Optreden2 = Optreden.builder()
+                                .naam("Imagine Dragons")
+                                .startuur(LocalTime.of(18, 0))
+                                .subgenres(Collections.singletonList(popSub1))
+                                .festivalNummer1(3030)
+                                .festivalNummer2(3530)
+                                .build();
+
+                Optreden Optreden3 = Optreden.builder()
+                                .naam("Daft Punk")
+                                .startuur(LocalTime.of(22, 0))
+                                .subgenres(Arrays.asList(danceSub1))
+                                .festivalNummer1(3060)
+                                .festivalNummer2(3560)
+                                .build();
+
+                Optreden Optreden4 = Optreden.builder()
+                                .naam("Eminem")
+                                .startuur(LocalTime.of(21, 0))
+                                .subgenres(Arrays.asList(rapSub1, rapSub2))
+                                .festivalNummer1(3090)
+                                .festivalNummer2(3590)
+                                .build();
+
+                Optreden Optreden5 = Optreden.builder()
+                                .naam("Nirvana")
+                                .startuur(LocalTime.of(19, 0))
+                                .subgenres(Arrays.asList(rockSub3))
+                                .festivalNummer1(3120)
+                                .festivalNummer2(3620)
+                                .build();
+
+                Optreden Optreden6 = Optreden.builder()
+                                .naam("Miles Davis")
+                                .startuur(LocalTime.of(17, 0))
+                                .subgenres(Collections.singletonList(jazzSub1))
+                                .festivalNummer1(3150)
+                                .festivalNummer2(3650)
+                                .build();
+
+                Optreden Optreden7 = Optreden.builder()
+                                .naam("Beyoncé")
+                                .startuur(LocalTime.of(16, 0))
+                                .subgenres(Arrays.asList(popSub2))
+                                .festivalNummer1(3180)
+                                .festivalNummer2(3680)
+                                .build();
+
+                Optreden Optreden8 = Optreden.builder()
+                                .naam("Avicii")
+                                .startuur(LocalTime.of(15, 0))
+                                .subgenres(Arrays.asList(danceSub2))
+                                .festivalNummer1(3210)
+                                .festivalNummer2(3710)
+                                .build();
+
+                Optreden Optreden9 = Optreden.builder()
+                                .naam("Jay-Z")
+                                .startuur(LocalTime.of(14, 0))
+                                .subgenres(Arrays.asList(rapSub3))
+                                .festivalNummer1(3240)
+                                .festivalNummer2(3740)
+                                .build();
+
+                Optreden Optreden10 = Optreden.builder()
+                                .naam("Coldplay")
+                                .startuur(LocalTime.of(13, 0))
+                                .subgenres(Arrays.asList(popSub3))
+                                .festivalNummer1(3270)
+                                .festivalNummer2(3770)
+                                .build();
+
+                OptredenRepository.saveAll(Arrays.asList(Optreden1, Optreden2, Optreden3, Optreden4, Optreden5,
+                                Optreden6, Optreden7, Optreden8, Optreden9, Optreden10));
+
                 // Festivals
                 Festival festival1 = Festival.builder().naam("Festival 1")
                                 .datum(LocalDate.of(2024, 7, 15))
@@ -125,8 +212,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(pop)
                                 .capaciteit(1000)
                                 .prijs(new BigDecimal("25.00"))
-                                .festivalNummer1(12345)
-                                .festivalNummer2(67890)
+                                .optredens(Arrays.asList(Optreden1, Optreden2))
                                 .build();
 
                 Festival festival2 = Festival.builder().naam("Festival 2")
@@ -136,8 +222,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rock)
                                 .capaciteit(800)
                                 .prijs(new BigDecimal("30.00"))
-                                .festivalNummer1(54321)
-                                .festivalNummer2(98765)
+                                .optredens(Arrays.asList(Optreden3, Optreden4))
                                 .build();
 
                 Festival festival3 = Festival.builder().naam("Festival 3")
@@ -147,8 +232,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(dance)
                                 .capaciteit(1200)
                                 .prijs(new BigDecimal("40.00"))
-                                .festivalNummer1(24680)
-                                .festivalNummer2(13579)
+                                .optredens(Arrays.asList(Optreden5, Optreden6))
                                 .build();
 
                 Festival festival4 = Festival.builder().naam("Festival 4")
@@ -158,8 +242,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rap)
                                 .capaciteit(900)
                                 .prijs(new BigDecimal("35.00"))
-                                .festivalNummer1(98765)
-                                .festivalNummer2(54321)
+                                .optredens(Arrays.asList(Optreden7, Optreden8))
                                 .build();
 
                 Festival festival5 = Festival.builder().naam("Festival 5")
@@ -169,8 +252,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(jazz)
                                 .capaciteit(700)
                                 .prijs(new BigDecimal("45.00"))
-                                .festivalNummer1(13579)
-                                .festivalNummer2(24680)
+                                .optredens(Arrays.asList(Optreden9, Optreden10))
                                 .build();
 
                 Festival festival6 = Festival.builder().naam("Festival 6")
@@ -180,8 +262,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(pop)
                                 .capaciteit(1100)
                                 .prijs(new BigDecimal("30.00"))
-                                .festivalNummer1(67890)
-                                .festivalNummer2(12345)
+                                .optredens(Arrays.asList(Optreden1, Optreden3))
                                 .build();
 
                 Festival festival7 = Festival.builder().naam("Festival 7")
@@ -191,8 +272,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rock)
                                 .capaciteit(850)
                                 .prijs(new BigDecimal("35.00"))
-                                .festivalNummer1(54321)
-                                .festivalNummer2(98765)
+                                .optredens(Arrays.asList(Optreden4, Optreden5))
                                 .build();
 
                 Festival festival8 = Festival.builder().naam("Festival 8")
@@ -202,8 +282,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(dance)
                                 .capaciteit(1250)
                                 .prijs(new BigDecimal("40.00"))
-                                .festivalNummer1(24680)
-                                .festivalNummer2(13579)
+                                .optredens(Arrays.asList(Optreden6, Optreden7))
                                 .build();
 
                 Festival festival9 = Festival.builder().naam("Festival 9")
@@ -213,8 +292,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rap)
                                 .capaciteit(950)
                                 .prijs(new BigDecimal("45.00"))
-                                .festivalNummer1(98765)
-                                .festivalNummer2(54321)
+                                .optredens(Arrays.asList(Optreden8, Optreden9))
                                 .build();
 
                 Festival festival10 = Festival.builder().naam("Festival 10")
@@ -224,8 +302,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(jazz)
                                 .capaciteit(750)
                                 .prijs(new BigDecimal("50.00"))
-                                .festivalNummer1(13579)
-                                .festivalNummer2(24680)
+                                .optredens(Arrays.asList(Optreden10, Optreden1))
                                 .build();
 
                 Festival festival11 = Festival.builder().naam("Festival 11")
@@ -235,8 +312,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(pop)
                                 .capaciteit(1150)
                                 .prijs(new BigDecimal("55.00"))
-                                .festivalNummer1(67890)
-                                .festivalNummer2(12345)
+                                .optredens(Arrays.asList(Optreden2, Optreden3))
                                 .build();
 
                 Festival festival12 = Festival.builder().naam("Festival 12")
@@ -246,8 +322,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rock)
                                 .capaciteit(900)
                                 .prijs(new BigDecimal("60.00"))
-                                .festivalNummer1(54321)
-                                .festivalNummer2(98765)
+                                .optredens(Arrays.asList(Optreden4, Optreden5))
                                 .build();
 
                 Festival festival13 = Festival.builder().naam("Festival 13")
@@ -257,8 +332,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(dance)
                                 .capaciteit(1200)
                                 .prijs(new BigDecimal("65.00"))
-                                .festivalNummer1(24680)
-                                .festivalNummer2(13579)
+                                .optredens(Arrays.asList(Optreden6, Optreden7))
                                 .build();
 
                 Festival festival14 = Festival.builder().naam("Festival 14")
@@ -268,8 +342,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rap)
                                 .capaciteit(1000)
                                 .prijs(new BigDecimal("70.00"))
-                                .festivalNummer1(98765)
-                                .festivalNummer2(54321)
+                                .optredens(Arrays.asList(Optreden8, Optreden9))
                                 .build();
 
                 Festival festival15 = Festival.builder().naam("Festival 15")
@@ -279,8 +352,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(jazz)
                                 .capaciteit(800)
                                 .prijs(new BigDecimal("75.00"))
-                                .festivalNummer1(13579)
-                                .festivalNummer2(24680)
+                                .optredens(Arrays.asList(Optreden10, Optreden1))
                                 .build();
 
                 Festival festival16 = Festival.builder().naam("Festival 16")
@@ -290,8 +362,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(pop)
                                 .capaciteit(1100)
                                 .prijs(new BigDecimal("80.00"))
-                                .festivalNummer1(67890)
-                                .festivalNummer2(12345)
+                                .optredens(Arrays.asList(Optreden2, Optreden3))
                                 .build();
 
                 Festival festival17 = Festival.builder().naam("Festival 17")
@@ -301,8 +372,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rock)
                                 .capaciteit(850)
                                 .prijs(new BigDecimal("85.00"))
-                                .festivalNummer1(54321)
-                                .festivalNummer2(98765)
+                                .optredens(Arrays.asList(Optreden4, Optreden5))
                                 .build();
 
                 Festival festival18 = Festival.builder().naam("Festival 18")
@@ -312,8 +382,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(dance)
                                 .capaciteit(1250)
                                 .prijs(new BigDecimal("90.00"))
-                                .festivalNummer1(24680)
-                                .festivalNummer2(13579)
+                                .optredens(Arrays.asList(Optreden6, Optreden7))
                                 .build();
 
                 Festival festival19 = Festival.builder().naam("Festival 19")
@@ -323,8 +392,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(rap)
                                 .capaciteit(950)
                                 .prijs(new BigDecimal("95.00"))
-                                .festivalNummer1(98765)
-                                .festivalNummer2(54321)
+                                .optredens(Arrays.asList(Optreden8, Optreden9))
                                 .build();
 
                 Festival festival20 = Festival.builder().naam("Festival 20")
@@ -334,8 +402,7 @@ public class InitDataConfig implements CommandLineRunner {
                                 .genre(jazz)
                                 .capaciteit(750)
                                 .prijs(new BigDecimal("100.00"))
-                                .festivalNummer1(13579)
-                                .festivalNummer2(24680)
+                                .optredens(Arrays.asList(Optreden10, Optreden1))
                                 .build();
 
                 festivalRepository.saveAll(Arrays.asList(
@@ -400,5 +467,6 @@ public class InitDataConfig implements CommandLineRunner {
 
                 ticketRepository.saveAll(Arrays.asList(ticket1, ticket2, ticket3,
                                 ticket4, ticket5, ticket6, ticket7, ticket8, ticket9));
+
         }
 }

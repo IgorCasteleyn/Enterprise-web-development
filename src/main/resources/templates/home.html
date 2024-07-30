@@ -19,13 +19,17 @@
         class="container mx-auto text-xl flex items-center justify-between space-x-8"
       >
         <div class="text-white font-bold text-xl">
-          <a th:href="@{/home}" class="hover:text-gray-400 m-0">SummerFest '24</a>
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+            >SummerFest '24</a
+          >
         </div>
         <div
           th:if="${#authorization.expression('hasRole(''USER'')') and (ticketsByUser?.size() ?: 0) > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/home}" class="hover:text-gray-400 m-0">Mijn ticketten</a>
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+            >Mijn ticketten</a
+          >
         </div>
 
         <form th:action="@{/logout}" method="post">
@@ -57,7 +61,7 @@
             />
           </div>
           <a
-            th:href="@{/regio/details/{id}(id=${regio.id})}"
+            th:href="@{/regio/{regioId}(regioId=${regio.id})}"
             class="hover:text-red-500 text-gray-700 text-xl"
           >
             <div class="w-full h-1/4 p-3 flex items-center justify-center">

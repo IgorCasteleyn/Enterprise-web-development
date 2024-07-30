@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title th:text="#{home.page.title}">Festival per Genre</title>
+    <title th:text="#{home.page.title}">Festival per regio</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -46,7 +46,7 @@
     </nav>
     <section class="p-8">
       <h1
-        th:text="${genre.naam}"
+        th:text="${regio.naam}"
         class="text-center text-2xl uppercase font-semibold mb-5"
       ></h1>
       <table class="min-w-full leading-normal">
@@ -114,7 +114,6 @@
                   <span th:text="${optreden.startuur}"></span>
                 </li>
               </ul>
-
               <a
                 th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
                 class="text-red-600 font-semibold hover:underline"

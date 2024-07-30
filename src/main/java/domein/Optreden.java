@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -34,9 +35,15 @@ public class Optreden implements Serializable {
   @Column(nullable = false)
   private String naam;
 
+  @Column(nullable = false)
+  private LocalTime startuur;
+
   @ManyToMany
   private List<SubGenre> subgenres;
 
   @Column(nullable = false)
-  private String link;
+  private int festivalNummer1;
+
+  @Column(nullable = false)
+  private int festivalNummer2;
 }

@@ -19,4 +19,9 @@ public class RegioServiceImpl implements RegioService {
     return regioRepository.findAll();
   }
 
+  @Override
+  public Regio getRegioById(Integer regioId) {
+    return regioRepository.findById(regioId).get();
+  }
+
 }

@@ -13,7 +13,7 @@
 	<artifactId>zomerFestival</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ZomerFestival</name>
-	<description>EWD opdracht</description>
+	<description>EWD herexamen augustus '24</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -57,11 +60,6 @@ public class Festival implements Serializable {
   @Column(nullable = false)
   private BigDecimal prijs;
 
-  @Column(nullable = false)
-
-  private int festivalNummer1;
-
-  @Column(nullable = false)
-  private int festivalNummer2;
-
+  @ManyToMany
+  private List<Optreden> optredens;
 }

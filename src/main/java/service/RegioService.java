@@ -9,4 +9,6 @@ public interface RegioService {
 
   public List<Regio> getAllRegios();
 
+  public Regio getRegioById(Integer regioId);
+
 }
