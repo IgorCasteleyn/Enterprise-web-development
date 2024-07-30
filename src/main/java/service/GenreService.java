@@ -9,4 +9,6 @@ public interface GenreService {
 
   public List<Genre> getAllGenres();
 
+  public Genre getGenreById(Integer genreId);
+
 }

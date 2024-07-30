@@ -1,24 +1,26 @@
 package com.zomerFestival.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.security.core.Authentication;
 
 import domein.*;
 import service.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/genre")
+public class GenreController {
 
   @Autowired
-  private RegioService regioService;
+  private FestivalService festivalService;
 
   @Autowired
   private UserService userService;
@@ -29,23 +31,24 @@ public class HomeController {
   @Autowired
   private GenreService genreService;
 
-  @GetMapping()
-  public String home(Model model) {
+  @GetMapping("/{genreId}")
+  public String getMethodName(@PathVariable Integer genreId, Model model) {
+
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     String username = userDetails.getUsername();
 
     User user = userService.findByUsername(username);
     List<Ticket> ticketsByUser = ticketService.getAllTicketsByUser(user);
+    
+    model.addAttribute("user", user);
     model.addAttribute("ticketsByUser", ticketsByUser);
+    model.addAttribute("festivals", festivalService.getAllFestivalsByGenre(genreId));
+    model.addAttribute("genre", genreService.getGenreById(genreId));
+    model.addAttribute("festivalService", festivalService);
+    model.addAttribute("ticketService", ticketService);
 
-    List<Regio> regios = regioService.getAllRegios();
-    model.addAttribute("regios", regios);
-
-    List<Genre> genres = genreService.getAllGenres();
-    model.addAttribute("genres", genres);
-
-    return "home";
+    return "genre";
   }
 
 }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="#{home.page.title}">Festival per Genre</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+  </head>
+  <body class="bg-gray-100">
+    <nav class="bg-gray-800 p-4">
+      <div
+        class="container mx-auto text-xl flex items-center justify-between space-x-8"
+      >
+        <div class="text-white font-bold text-xl">
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+            >SummerFest '24</a
+          >
+        </div>
+        <div
+          th:if="${#authorization.expression('hasRole(''USER'')') and ticketsByUser.size() > 0}"
+          class="text-white font-bold text-xl m-0"
+        >
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+            >Mijn ticketten</a
+          >
+        </div>
+
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="text-white text-2xl hover:text-gray-400">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+          <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}"
+          />
+        </form>
+      </div>
+    </nav>
+    <section class="p-8">
+      <h1
+        th:text="${genre.naam}"
+        class="text-center text-2xl uppercase font-semibold mb-5"
+      ></h1>
+      <table class="min-w-full leading-normal">
+        <thead>
+          <tr class="bg-gray-800 text-white">
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Naam
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Datum & aanvangsuur
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Planning
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Regio
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Beschikbare plaatsen
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Prijs
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+            >
+              Reeds gekochte tickets
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            th:each="festival : ${festivals}"
+            class="bg-white hover:bg-gray-100"
+          >
+            <td
+              class="px-5 py-5 border-b border-gray-200 text-sm"
+              th:text="${festival.naam}"
+            ></td>
+            <td class="px-5 py-5 border-b border-gray-200 text-sm">
+              <span
+                th:text="${#temporals.format(festival.datum, 'dd-MM-yyyy')}"
+              ></span>
+              om
+              <span
+                th:text="${#temporals.format(festival.aanvangsuur, 'HH:mm')}"
+              ></span>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 text-sm"></td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 text-sm"
+              th:text="${festival.regio.naam}"
+            ></td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 text-sm"
+              th:text="${festivalService.getBeschikbarePlaatsen(festival)}"
+            ></td>
+            <td class="px-5 py-5 border-b border-gray-200 text-sm">
+              <span
+                th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                th:text="${'€ '+festival.prijs}"
+              ></span>
+              <span
+                th:if="${#authorization.expression('hasRole(''USER'')') and festivalService.getBeschikbarePlaatsen(festival) > 0}"
+                th:text="${'€ '+festival.prijs}"
+              ></span>
+            </td>
+            <td
+            class="px-5 py-5 border-b border-gray-200 text-sm"
+            th:text="${ticketService.getNumberOfTicketsPerUserPerFestival(user,festival)}"
+          ></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

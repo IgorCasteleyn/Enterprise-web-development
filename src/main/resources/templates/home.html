@@ -15,48 +15,21 @@
   </head>
   <body class="bg-gray-100">
     <nav class="bg-gray-800 p-4">
-      <div class="container mx-auto text-xl flex items-center justify-center space-x-8">
-        <div class="text-white font-semibold">
-          <a href="/" class="hover:text-gray-400">Home</a>
+      <div
+        class="container mx-auto text-xl flex items-center justify-between space-x-8"
+      >
+        <div class="text-white font-bold text-xl">
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0">SummerFest '24</a>
         </div>
-        <div class="relative dropdown">
-          <button class="text-white font-semibold focus:outline-none">
-            Regios
-          </button>
-          <div
-            class="absolute dropdown-content bg-gray-700 text-white rounded shadow-lg mt-2 py-2"
-          >
-            <ul>
-              <li th:each="regio : ${regios}">
-                <a
-                  th:href="@{/home(regio=${regio.id})}"
-                  th:text="${regio.naam}"
-                  class="block px-4 py-2 hover:bg-gray-600"
-                ></a>
-              </li>
-            </ul>
-          </div>
+        <div
+          th:if="${#authorization.expression('hasRole(''USER'')') and (ticketsByUser?.size() ?: 0) > 0}"
+          class="text-white font-bold text-xl m-0"
+        >
+          <a th:href="@{/home}" class="hover:text-gray-400 m-0">Mijn ticketten</a>
         </div>
-        <div class="relative dropdown">
-          <button class="text-white font-semibold focus:outline-none">
-            Genres
-          </button>
-          <div
-            class="absolute dropdown-content bg-gray-700 text-white rounded shadow-lg mt-2 py-2"
-          >
-            <ul>
-              <li th:each="genre : ${genres}">
-                <a
-                  th:href="@{/home(genre=${genre.id})}"
-                  th:text="${genre.naam}"
-                  class="block px-4 py-2 hover:bg-gray-600"
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
+
         <form th:action="@{/logout}" method="post">
-          <button type="submit" class="text-white text-2xl">
+          <button type="submit" class="text-white text-2xl hover:text-gray-400">
             <i class="fas fa-sign-out-alt"></i>
           </button>
           <input
@@ -67,14 +40,62 @@
         </form>
       </div>
     </nav>
-    <div class="container mx-auto p-4">
-      <p>DIT IS HOME</p>
-      <p th:if="${#authorization.expression('hasRole(''USER'')')}">
-        Voor een user
-      </p>
-      <p th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-        Voor een admin
-      </p>
-    </div>
+    <section class="p-4">
+      <h1 class="text-center text-4xl text-red-500 my-6 uppercase font-bold">
+        Regios
+      </h1>
+      <div class="py-6 flex flex-wrap justify-center">
+        <div
+          th:each="regio : ${regios}"
+          class="bg-white w-1/4 h-96 shadow-md rounded m-3 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+        >
+          <div class="h-3/4 w-full">
+            <img
+              th:src="${regio.link}"
+              class="w-full h-full object-cover rounded-t"
+              alt="regio image"
+            />
+          </div>
+          <a
+            th:href="@{/regio/details/{id}(id=${regio.id})}"
+            class="hover:text-red-500 text-gray-700 text-xl"
+          >
+            <div class="w-full h-1/4 p-3 flex items-center justify-center">
+              <span
+                th:text="${regio.naam}"
+                class="text-lg font-semibold uppercase tracking-wide"
+              ></span></div
+          ></a>
+        </div>
+      </div>
+
+      <h1 class="text-center text-4xl text-red-500 my-6 uppercase font-bold">
+        Genres
+      </h1>
+      <div class="py-6 flex flex-wrap justify-center">
+        <div
+          th:each="genre : ${genres}"
+          class="bg-white w-1/4 h-96 shadow-md rounded m-3 transform transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+        >
+          <div class="h-3/4 w-full">
+            <img
+              th:src="${genre.link}"
+              class="w-full h-full object-cover rounded-t"
+              alt="genre image"
+            />
+          </div>
+          <a
+            th:href="@{/genre/{genreId}(genreId=${genre.id})}"
+            class="hover:text-red-500 text-gray-700 text-xl"
+          >
+            <div class="w-full h-1/4 p-3 flex items-center justify-center">
+              <span
+                th:text="${genre.naam}"
+                class="font-semibold uppercase tracking-wide"
+              ></span></div
+          ></a>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

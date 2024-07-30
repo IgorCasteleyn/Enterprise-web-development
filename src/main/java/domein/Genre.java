@@ -36,4 +36,7 @@ public class Genre implements Serializable {
 
   @ManyToMany
   private List<SubGenre> subgenres;
+
+  @Column(nullable = false)
+  private String link;
 }

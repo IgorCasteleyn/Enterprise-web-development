@@ -46,28 +46,49 @@ public class InitDataConfig implements CommandLineRunner {
                                 Collections.singletonList("ROLE_USER"));
                 User user2 = new User(2, "user2", passwordEncoder.encode("1234"), true,
                                 Collections.singletonList("ROLE_USER"));
+                User user3 = new User(3, "user3", passwordEncoder.encode("1234"), true,
+                                Collections.singletonList("ROLE_USER"));
 
-                User admin = new User(3, "admin", passwordEncoder.encode("1234"), true,
+                User admin = new User(4, "admin", passwordEncoder.encode("1234"), true,
                                 Collections.singletonList("ROLE_ADMIN"));
 
-                userRepository.saveAll(Arrays.asList(user1, user2, admin));
+                userRepository.saveAll(Arrays.asList(user1, user2, user3, admin));
 
                 // Regio's
-                Regio regio1 = Regio.builder().naam("Antwerpen").build();
-                Regio regio2 = Regio.builder().naam("Brussel").build();
-                Regio regio3 = Regio.builder().naam("Limburg").build();
-                Regio regio4 = Regio.builder().naam("Oost-Vlaanderen").build();
-                Regio regio5 = Regio.builder().naam("Vlaams-Brabant").build();
-                Regio regio6 = Regio.builder().naam("West-Vlaanderen").build();
+                Regio regio1 = Regio.builder().naam("Antwerpen")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/Antwerpen.jpg").build();
+                Regio regio2 = Regio.builder().naam("Luik")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/Liege.jpg").build();
+                Regio regio3 = Regio.builder().naam("Limburg")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/Limburg.jpg").build();
+                Regio regio4 = Regio.builder().naam("Oost-Vlaanderen")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/Oost-Vlaanderen.jpg")
+                                .build();
+                Regio regio5 = Regio.builder().naam("Vlaams-Brabant")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/Vlaams-Brabant.jpg")
+                                .build();
+                Regio regio6 = Regio.builder().naam("West-Vlaanderen")
+                                .link("https://www.belgiekaart.com/wp-content/uploads/2020/12/West-Vlaanderen.jpg")
+                                .build();
 
                 regioRepository.saveAll(Arrays.asList(regio1, regio2, regio3, regio4, regio5, regio6));
 
                 // Genres
-                Genre pop = Genre.builder().naam("Pop").build();
-                Genre rock = Genre.builder().naam("Rock").build();
-                Genre dance = Genre.builder().naam("Dance").build();
-                Genre rap = Genre.builder().naam("Rap").build();
-                Genre jazz = Genre.builder().naam("Jazz").build();
+                Genre pop = Genre.builder().naam("Pop").link(
+                                "https://userscontent2.emaze.com/images/ae8de35b-b91d-4267-90ed-78868d1ca0c8/dbfd688c-9a00-4da3-baec-6fcd6032701c.jpg")
+                                .build();
+                Genre rock = Genre.builder().naam("Rock")
+                                .link("https://i.pinimg.com/originals/0e/84/50/0e8450fa12dc7a7fb2148101bd836abd.jpg")
+                                .build();
+                Genre dance = Genre.builder().naam("Dance").link(
+                                "https://musictech.com/wp-content/uploads/2019/10/tutorial-create-edm-free-header@1400x1050-650x488.jpg")
+                                .build();
+                Genre rap = Genre.builder().naam("Rap").link(
+                                "https://getwallpapers.com/wallpaper/full/6/9/f/1128456-free-rap-wallpaper-3840x2160.jpg")
+                                .build();
+                Genre jazz = Genre.builder().naam("Jazz")
+                                .link("https://media04.meinbezirk.at/article/2016/02/22/9/376639_XL.jpg?1462069121")
+                                .build();
 
                 genreRepository.saveAll(Arrays.asList(pop, rock, dance, rap, jazz));
 
@@ -99,220 +120,220 @@ public class InitDataConfig implements CommandLineRunner {
                 // Festivals
                 Festival festival1 = Festival.builder().naam("Festival 1")
                                 .datum(LocalDate.of(2024, 7, 15))
-                                .aanvangUur(LocalTime.of(12, 0))
+                                .aanvangsuur(LocalTime.of(12, 0))
                                 .regio(regio1)
                                 .genre(pop)
-                                .beschikbarePlaatsen(1000)
-                                .ticketPrijs(new BigDecimal("25.00"))
+                                .capaciteit(1000)
+                                .prijs(new BigDecimal("25.00"))
                                 .festivalNummer1(12345)
                                 .festivalNummer2(67890)
                                 .build();
 
                 Festival festival2 = Festival.builder().naam("Festival 2")
                                 .datum(LocalDate.of(2024, 7, 20))
-                                .aanvangUur(LocalTime.of(14, 0))
+                                .aanvangsuur(LocalTime.of(14, 0))
                                 .regio(regio2)
                                 .genre(rock)
-                                .beschikbarePlaatsen(800)
-                                .ticketPrijs(new BigDecimal("30.00"))
+                                .capaciteit(800)
+                                .prijs(new BigDecimal("30.00"))
                                 .festivalNummer1(54321)
                                 .festivalNummer2(98765)
                                 .build();
 
                 Festival festival3 = Festival.builder().naam("Festival 3")
                                 .datum(LocalDate.of(2024, 7, 25))
-                                .aanvangUur(LocalTime.of(11, 0))
+                                .aanvangsuur(LocalTime.of(11, 0))
                                 .regio(regio3)
                                 .genre(dance)
-                                .beschikbarePlaatsen(1200)
-                                .ticketPrijs(new BigDecimal("40.00"))
+                                .capaciteit(1200)
+                                .prijs(new BigDecimal("40.00"))
                                 .festivalNummer1(24680)
                                 .festivalNummer2(13579)
                                 .build();
 
                 Festival festival4 = Festival.builder().naam("Festival 4")
                                 .datum(LocalDate.of(2024, 8, 1))
-                                .aanvangUur(LocalTime.of(13, 0))
+                                .aanvangsuur(LocalTime.of(13, 0))
                                 .regio(regio4)
                                 .genre(rap)
-                                .beschikbarePlaatsen(900)
-                                .ticketPrijs(new BigDecimal("35.00"))
+                                .capaciteit(900)
+                                .prijs(new BigDecimal("35.00"))
                                 .festivalNummer1(98765)
                                 .festivalNummer2(54321)
                                 .build();
 
                 Festival festival5 = Festival.builder().naam("Festival 5")
                                 .datum(LocalDate.of(2024, 8, 5))
-                                .aanvangUur(LocalTime.of(15, 0))
+                                .aanvangsuur(LocalTime.of(15, 0))
                                 .regio(regio5)
                                 .genre(jazz)
-                                .beschikbarePlaatsen(700)
-                                .ticketPrijs(new BigDecimal("45.00"))
+                                .capaciteit(700)
+                                .prijs(new BigDecimal("45.00"))
                                 .festivalNummer1(13579)
                                 .festivalNummer2(24680)
                                 .build();
 
                 Festival festival6 = Festival.builder().naam("Festival 6")
                                 .datum(LocalDate.of(2024, 8, 10))
-                                .aanvangUur(LocalTime.of(16, 0))
+                                .aanvangsuur(LocalTime.of(16, 0))
                                 .regio(regio6)
                                 .genre(pop)
-                                .beschikbarePlaatsen(1100)
-                                .ticketPrijs(new BigDecimal("30.00"))
+                                .capaciteit(1100)
+                                .prijs(new BigDecimal("30.00"))
                                 .festivalNummer1(67890)
                                 .festivalNummer2(12345)
                                 .build();
 
                 Festival festival7 = Festival.builder().naam("Festival 7")
                                 .datum(LocalDate.of(2024, 8, 15))
-                                .aanvangUur(LocalTime.of(17, 0))
+                                .aanvangsuur(LocalTime.of(17, 0))
                                 .regio(regio1)
                                 .genre(rock)
-                                .beschikbarePlaatsen(850)
-                                .ticketPrijs(new BigDecimal("35.00"))
+                                .capaciteit(850)
+                                .prijs(new BigDecimal("35.00"))
                                 .festivalNummer1(54321)
                                 .festivalNummer2(98765)
                                 .build();
 
                 Festival festival8 = Festival.builder().naam("Festival 8")
                                 .datum(LocalDate.of(2024, 8, 20))
-                                .aanvangUur(LocalTime.of(18, 0))
+                                .aanvangsuur(LocalTime.of(18, 0))
                                 .regio(regio2)
                                 .genre(dance)
-                                .beschikbarePlaatsen(1250)
-                                .ticketPrijs(new BigDecimal("40.00"))
+                                .capaciteit(1250)
+                                .prijs(new BigDecimal("40.00"))
                                 .festivalNummer1(24680)
                                 .festivalNummer2(13579)
                                 .build();
 
                 Festival festival9 = Festival.builder().naam("Festival 9")
                                 .datum(LocalDate.of(2024, 8, 25))
-                                .aanvangUur(LocalTime.of(19, 0))
+                                .aanvangsuur(LocalTime.of(19, 0))
                                 .regio(regio3)
                                 .genre(rap)
-                                .beschikbarePlaatsen(950)
-                                .ticketPrijs(new BigDecimal("45.00"))
+                                .capaciteit(950)
+                                .prijs(new BigDecimal("45.00"))
                                 .festivalNummer1(98765)
                                 .festivalNummer2(54321)
                                 .build();
 
                 Festival festival10 = Festival.builder().naam("Festival 10")
                                 .datum(LocalDate.of(2024, 9, 1))
-                                .aanvangUur(LocalTime.of(20, 0))
+                                .aanvangsuur(LocalTime.of(20, 0))
                                 .regio(regio4)
                                 .genre(jazz)
-                                .beschikbarePlaatsen(750)
-                                .ticketPrijs(new BigDecimal("50.00"))
+                                .capaciteit(750)
+                                .prijs(new BigDecimal("50.00"))
                                 .festivalNummer1(13579)
                                 .festivalNummer2(24680)
                                 .build();
 
                 Festival festival11 = Festival.builder().naam("Festival 11")
                                 .datum(LocalDate.of(2024, 9, 5))
-                                .aanvangUur(LocalTime.of(21, 0))
+                                .aanvangsuur(LocalTime.of(21, 0))
                                 .regio(regio5)
                                 .genre(pop)
-                                .beschikbarePlaatsen(1150)
-                                .ticketPrijs(new BigDecimal("55.00"))
+                                .capaciteit(1150)
+                                .prijs(new BigDecimal("55.00"))
                                 .festivalNummer1(67890)
                                 .festivalNummer2(12345)
                                 .build();
 
                 Festival festival12 = Festival.builder().naam("Festival 12")
                                 .datum(LocalDate.of(2024, 9, 12))
-                                .aanvangUur(LocalTime.of(22, 0))
+                                .aanvangsuur(LocalTime.of(22, 0))
                                 .regio(regio6)
                                 .genre(rock)
-                                .beschikbarePlaatsen(900)
-                                .ticketPrijs(new BigDecimal("60.00"))
+                                .capaciteit(900)
+                                .prijs(new BigDecimal("60.00"))
                                 .festivalNummer1(54321)
                                 .festivalNummer2(98765)
                                 .build();
 
                 Festival festival13 = Festival.builder().naam("Festival 13")
                                 .datum(LocalDate.of(2024, 9, 10))
-                                .aanvangUur(LocalTime.of(13, 0))
+                                .aanvangsuur(LocalTime.of(13, 0))
                                 .regio(regio1)
                                 .genre(dance)
-                                .beschikbarePlaatsen(1200)
-                                .ticketPrijs(new BigDecimal("65.00"))
+                                .capaciteit(1200)
+                                .prijs(new BigDecimal("65.00"))
                                 .festivalNummer1(24680)
                                 .festivalNummer2(13579)
                                 .build();
 
                 Festival festival14 = Festival.builder().naam("Festival 14")
                                 .datum(LocalDate.of(2024, 9, 15))
-                                .aanvangUur(LocalTime.of(14, 0))
+                                .aanvangsuur(LocalTime.of(14, 0))
                                 .regio(regio2)
                                 .genre(rap)
-                                .beschikbarePlaatsen(1000)
-                                .ticketPrijs(new BigDecimal("70.00"))
+                                .capaciteit(1000)
+                                .prijs(new BigDecimal("70.00"))
                                 .festivalNummer1(98765)
                                 .festivalNummer2(54321)
                                 .build();
 
                 Festival festival15 = Festival.builder().naam("Festival 15")
                                 .datum(LocalDate.of(2024, 9, 20))
-                                .aanvangUur(LocalTime.of(15, 0))
+                                .aanvangsuur(LocalTime.of(15, 0))
                                 .regio(regio3)
                                 .genre(jazz)
-                                .beschikbarePlaatsen(800)
-                                .ticketPrijs(new BigDecimal("75.00"))
+                                .capaciteit(800)
+                                .prijs(new BigDecimal("75.00"))
                                 .festivalNummer1(13579)
                                 .festivalNummer2(24680)
                                 .build();
 
                 Festival festival16 = Festival.builder().naam("Festival 16")
                                 .datum(LocalDate.of(2024, 9, 25))
-                                .aanvangUur(LocalTime.of(16, 0))
+                                .aanvangsuur(LocalTime.of(16, 0))
                                 .regio(regio4)
                                 .genre(pop)
-                                .beschikbarePlaatsen(1100)
-                                .ticketPrijs(new BigDecimal("80.00"))
+                                .capaciteit(1100)
+                                .prijs(new BigDecimal("80.00"))
                                 .festivalNummer1(67890)
                                 .festivalNummer2(12345)
                                 .build();
 
                 Festival festival17 = Festival.builder().naam("Festival 17")
                                 .datum(LocalDate.of(2024, 10, 1))
-                                .aanvangUur(LocalTime.of(17, 0))
+                                .aanvangsuur(LocalTime.of(17, 0))
                                 .regio(regio5)
                                 .genre(rock)
-                                .beschikbarePlaatsen(850)
-                                .ticketPrijs(new BigDecimal("85.00"))
+                                .capaciteit(850)
+                                .prijs(new BigDecimal("85.00"))
                                 .festivalNummer1(54321)
                                 .festivalNummer2(98765)
                                 .build();
 
                 Festival festival18 = Festival.builder().naam("Festival 18")
                                 .datum(LocalDate.of(2024, 10, 5))
-                                .aanvangUur(LocalTime.of(18, 0))
+                                .aanvangsuur(LocalTime.of(18, 0))
                                 .regio(regio6)
                                 .genre(dance)
-                                .beschikbarePlaatsen(1250)
-                                .ticketPrijs(new BigDecimal("90.00"))
+                                .capaciteit(1250)
+                                .prijs(new BigDecimal("90.00"))
                                 .festivalNummer1(24680)
                                 .festivalNummer2(13579)
                                 .build();
 
                 Festival festival19 = Festival.builder().naam("Festival 19")
                                 .datum(LocalDate.of(2024, 10, 10))
-                                .aanvangUur(LocalTime.of(19, 0))
+                                .aanvangsuur(LocalTime.of(19, 0))
                                 .regio(regio1)
                                 .genre(rap)
-                                .beschikbarePlaatsen(950)
-                                .ticketPrijs(new BigDecimal("95.00"))
+                                .capaciteit(950)
+                                .prijs(new BigDecimal("95.00"))
                                 .festivalNummer1(98765)
                                 .festivalNummer2(54321)
                                 .build();
 
                 Festival festival20 = Festival.builder().naam("Festival 20")
                                 .datum(LocalDate.of(2024, 10, 15))
-                                .aanvangUur(LocalTime.of(20, 0))
+                                .aanvangsuur(LocalTime.of(20, 0))
                                 .regio(regio2)
                                 .genre(jazz)
-                                .beschikbarePlaatsen(750)
-                                .ticketPrijs(new BigDecimal("100.00"))
+                                .capaciteit(750)
+                                .prijs(new BigDecimal("100.00"))
                                 .festivalNummer1(13579)
                                 .festivalNummer2(24680)
                                 .build();
@@ -327,12 +348,12 @@ public class InitDataConfig implements CommandLineRunner {
                 Ticket ticket1 = Ticket.builder()
                                 .festival(festival1)
                                 .user(user1)
-                                .aantal(2)
+                                .aantal(7)
                                 .build();
 
                 Ticket ticket2 = Ticket.builder()
                                 .festival(festival2)
-                                .user(user2).aantal(3)
+                                .user(user2).aantal(800)
                                 .build();
 
                 Ticket ticket3 = Ticket.builder()

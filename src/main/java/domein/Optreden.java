@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import lombok.AccessLevel;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,9 +21,9 @@ import jakarta.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Table(name = "regios")
+@Table(name = "optredens")
 
-public class Regio implements Serializable {
+public class Optreden implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -32,7 +34,9 @@ public class Regio implements Serializable {
   @Column(nullable = false)
   private String naam;
 
+  @ManyToMany
+  private List<SubGenre> subgenres;
+
   @Column(nullable = false)
   private String link;
-
 }

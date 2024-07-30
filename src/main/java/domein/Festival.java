@@ -15,6 +15,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -39,19 +41,21 @@ public class Festival implements Serializable {
   private LocalDate datum;
 
   @Column(nullable = false)
-  private LocalTime aanvangUur;
+  private LocalTime aanvangsuur;
 
-  @Column(nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "regio_id", nullable = false)
   private Regio regio;
 
-  @Column(nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "genre_id", nullable = false)
   private Genre genre;
 
   @Column(nullable = false)
-  private Integer beschikbarePlaatsen;
+  private Integer capaciteit;
 
   @Column(nullable = false)
-  private BigDecimal ticketPrijs;
+  private BigDecimal prijs;
 
   @Column(nullable = false)
 
