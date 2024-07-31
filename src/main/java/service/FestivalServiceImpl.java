@@ -2,12 +2,10 @@ package service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import domein.Festival;
-import domein.Optreden;
-import domein.Ticket;
-import repository.FestivalRepository;
-import repository.TicketRepository;
+import domein.*;
+import repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,15 @@ public class FestivalServiceImpl implements FestivalService {
 
   @Autowired
   private TicketRepository ticketRepository;
+
+  @Autowired
+  private SubGenreRepository subGenreRepository;
+
+  @Autowired
+  private SubGenreService subGenreService;
+
+  @Autowired
+  private OptredenRepository optredenRepository;
 
   @Override
   public Festival getFestivalById(Integer festivalId) {
@@ -67,13 +74,34 @@ public class FestivalServiceImpl implements FestivalService {
       if (optredenToRemove != null) {
         optredens.remove(optredenToRemove);
         festival.setOptredens(optredens);
-        this.saveFestival(festival);
+        festivalRepository.save(festival);
       }
     }
   }
 
-  public void saveFestival(Festival festival) {
-    festivalRepository.save(festival);
+  @Override
+  public void addOptreden(Integer festivalId, NieuwOptreden nieuwOptreden, List<Integer> subgenreIds) {
+    Festival festival = this.getFestivalById(festivalId);
+    List<SubGenre> subGenreList = subgenreIds.stream()
+        .map(id -> subGenreService.getSubGenreById(id))
+        .collect(Collectors.toList());
+    if (festival != null) {
+      Optreden optreden = Optreden.builder()
+          .naam(nieuwOptreden.getNaam())
+          .startuur(nieuwOptreden.getStartuur())
+          .subgenres(subGenreList)
+          .build();
+      optredenRepository.save(optreden);
+      List<Optreden> optredens = festival.getOptredens();
+      optredens.add(optreden);
+      festival.setOptredens(optredens);
+      festivalRepository.save(festival);
+    }
+  }
+
+  @Override
+  public List<SubGenre> getAllSubGenres(Integer genreId) {
+    return subGenreRepository.findAllByGenreId(genreId);
   }
 
 }

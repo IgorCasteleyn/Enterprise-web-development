@@ -1,6 +1,7 @@
 package com.zomerFestival.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,13 +9,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import domein.*;
+import jakarta.validation.Valid;
 import service.*;
+import validator.NieuwOptredenValidation;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,6 +37,12 @@ public class WijzigPlanningController {
   @Autowired
   private TicketService ticketService;
 
+  @Autowired
+  private NieuwOptredenValidation nieuwOptredenValidation;
+
+  @Autowired
+  private SubGenreService subGenreService;
+
   @GetMapping("/{festivalId}")
   public String getFestivalPlanning(@PathVariable Integer festivalId, Model model) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,11 +52,12 @@ public class WijzigPlanningController {
     User user = userService.findByUsername(username);
     List<Ticket> ticketsByUser = ticketService.getAllTicketsByUser(user);
     Festival festival = festivalService.getFestivalById(festivalId);
-
+    model.addAttribute("nieuwOptreden", new NieuwOptreden());
     model.addAttribute("user", user);
     model.addAttribute("ticketsByUser", ticketsByUser);
     model.addAttribute("festival", festival);
     model.addAttribute("optredens", festival.getOptredens());
+    model.addAttribute("subGenres", festivalService.getAllSubGenres(festival.getGenre().getId()));
 
     return "wijzigplanning";
   }
@@ -56,13 +70,22 @@ public class WijzigPlanningController {
     return "redirect:/wijzigplanning/" + festivalId;
   }
 
-  // @PostMapping("/{festivalId}/addOptreden")
-  // public String addOptreden(@PathVariable Integer festivalId, @RequestParam
-  // String naam, @RequestParam String startuur, RedirectAttributes
-  // redirectAttributes) {
-  // festivalService.addOptreden(festivalId, naam, startuur);
-  // redirectAttributes.addFlashAttribute("message", "Optreden succesvol
-  // toegevoegd");
-  // return "redirect:/wijzigplanning/" + festivalId;
-  // }
+  @PostMapping("/{festivalId}/addOptreden")
+  public String addOptreden(@PathVariable Integer festivalId,
+      @Valid @ModelAttribute("nieuwOptreden") NieuwOptreden nieuwOptreden, BindingResult bindingResult,
+      RedirectAttributes redirectAttributes, @RequestParam List<Integer> subgenreIds, Model model) {
+    nieuwOptredenValidation.validate(nieuwOptreden, bindingResult);
+
+    if (bindingResult.hasErrors()) {
+      System.out.println(bindingResult.getAllErrors());
+      model.addAttribute("nieuwOptreden", nieuwOptreden);
+      return "redirect:/wijzigplanning/" + festivalId;
+    }
+
+    
+    festivalService.addOptreden(festivalId, nieuwOptreden,subgenreIds);
+
+    redirectAttributes.addFlashAttribute("message", "Optreden succesvol toegevoegd");
+    return "redirect:/wijzigplanning/" + festivalId;
+  }
 }

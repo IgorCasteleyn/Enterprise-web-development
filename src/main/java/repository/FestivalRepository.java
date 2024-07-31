@@ -13,4 +13,5 @@ public interface FestivalRepository extends JpaRepository<Festival, Integer> {
   public List<Festival> findAllByGenreId(Integer genreId);
 
   public List<Festival> findAllByRegioId(Integer regioId);
+
 }
