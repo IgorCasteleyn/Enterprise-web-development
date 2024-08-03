@@ -6,16 +6,23 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import validator.NieuwOptredenValidation;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = { "repository" })
 @EntityScan("domein")
 @ComponentScan({ "service", "com.zomerFestival" })
-public class ZomerFestivalApp {
+public class ZomerFestivalApp implements WebMvcConfigurer {
   public static void main(String[] args) {
     SpringApplication.run(ZomerFestivalApp.class, args);
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "/login");
   }
 
   @Bean

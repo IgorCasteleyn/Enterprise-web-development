@@ -1,7 +1,6 @@
 package com.zomerFestival.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,9 +39,6 @@ public class WijzigPlanningController {
   @Autowired
   private NieuwOptredenValidation nieuwOptredenValidation;
 
-  @Autowired
-  private SubGenreService subGenreService;
-
   @GetMapping("/{festivalId}")
   public String getFestivalPlanning(@PathVariable Integer festivalId, Model model) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -73,17 +69,16 @@ public class WijzigPlanningController {
   @PostMapping("/{festivalId}/addOptreden")
   public String addOptreden(@PathVariable Integer festivalId,
       @Valid @ModelAttribute("nieuwOptreden") NieuwOptreden nieuwOptreden, BindingResult bindingResult,
-      RedirectAttributes redirectAttributes, @RequestParam List<Integer> subgenreIds, Model model) {
+      RedirectAttributes redirectAttributes, @RequestParam(defaultValue = "") List<Integer> subgenreIds, Model model) {
     nieuwOptredenValidation.validate(nieuwOptreden, bindingResult);
 
     if (bindingResult.hasErrors()) {
       System.out.println(bindingResult.getAllErrors());
-      model.addAttribute("nieuwOptreden", nieuwOptreden);
+
       return "redirect:/wijzigplanning/" + festivalId;
     }
 
-    
-    festivalService.addOptreden(festivalId, nieuwOptreden,subgenreIds);
+    festivalService.addOptreden(festivalId, nieuwOptreden, subgenreIds);
 
     redirectAttributes.addFlashAttribute("message", "Optreden succesvol toegevoegd");
     return "redirect:/wijzigplanning/" + festivalId;

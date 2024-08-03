@@ -89,6 +89,8 @@ public class FestivalServiceImpl implements FestivalService {
       Optreden optreden = Optreden.builder()
           .naam(nieuwOptreden.getNaam())
           .startuur(nieuwOptreden.getStartuur())
+          .festivalNummer1(nieuwOptreden.getFestivalNummer1())
+          .festivalNummer2(nieuwOptreden.getFestivalNummer2())
           .subgenres(subGenreList)
           .build();
       optredenRepository.save(optreden);

@@ -26,25 +26,21 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.csrf(csrf -> csrf.csrfTokenRepository(new HttpSessionCsrfTokenRepository()))
-                .authorizeHttpRequests(requests -> requests.requestMatchers("/login**").permitAll()
+        http
+                .csrf(csrf -> csrf.csrfTokenRepository(new HttpSessionCsrfTokenRepository()))
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/login**").permitAll()
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/sporten").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/wedstrijd").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/mijnTicketten").hasRole("USER")
-                        .requestMatchers("/nieuweWedstrijd").hasRole("ADMIN")
-                        .requestMatchers("/nieuweTicket").hasRole("USER")
-                        .requestMatchers("/rest/**").permitAll()
-                        .requestMatchers("/access-denied").permitAll()
-
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/regio").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/genre").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/koopticket").hasRole("USER")
+                        .requestMatchers("/wijzigplanning/**").hasRole("ADMIN")
                         .anyRequest().hasAnyRole("USER", "ADMIN"))
                 .formLogin(form -> form.defaultSuccessUrl("/home", true)
                         .loginPage("/login"))
                 .exceptionHandling(e -> e.accessDeniedPage("/access-denied"));
-        ;
-
         return http.build();
-
     }
 }

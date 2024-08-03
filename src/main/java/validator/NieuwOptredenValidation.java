@@ -30,9 +30,9 @@ public class NieuwOptredenValidation implements Validator {
         int festivalNummer2 = nieuwOptreden.getFestivalNummer2();
 
         if (naam == null || naam.isBlank()) {
-            errors.rejectValue("naam", "Validation.naamNull", "Naam mag niet leeg zijn");
+            errors.rejectValue("naam", "Validation.naamNull");
         } else if (!naam.matches("^[a-zA-Z ]+$")) {
-            errors.rejectValue("naam", "Validation.naamInvalid", "Naam mag enkel uit letters en spaties bestaan");
+            errors.rejectValue("naam", "Validation.naamInvalid");
         }
 
         if (startuur == null) {
