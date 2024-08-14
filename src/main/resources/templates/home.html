@@ -27,7 +27,7 @@
           th:if="${#authorization.expression('hasRole(''USER'')') and (ticketsByUser?.size() ?: 0) > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+          <a th:href="@{/mijnticketten}" class="hover:text-gray-400 m-0"
             >Mijn ticketten</a
           >
         </div>

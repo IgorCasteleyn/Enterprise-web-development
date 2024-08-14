@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/regio").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/genre").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/koopticket").hasRole("USER")
+                        .requestMatchers("/ticket").hasRole("USER")
                         .requestMatchers("/wijzigplanning/**").hasRole("ADMIN")
                         .anyRequest().hasAnyRole("USER", "ADMIN"))
                 .formLogin(form -> form.defaultSuccessUrl("/home", true)

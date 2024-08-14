@@ -33,7 +33,7 @@ public class GenreController {
 
   @GetMapping("/{genreId}")
   public String getMethodName(@PathVariable Integer genreId, Model model) {
-
+    // TODO:naam veranderen van deze methode en alle andere getmethodenamen
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     String username = userDetails.getUsername();
@@ -47,6 +47,7 @@ public class GenreController {
     model.addAttribute("genre", genreService.getGenreById(genreId));
     model.addAttribute("festivalService", festivalService);
     model.addAttribute("ticketService", ticketService);
+    model.addAttribute("magKopen", ticketService.magTicketsKopen(user));
 
     return "genre";
   }

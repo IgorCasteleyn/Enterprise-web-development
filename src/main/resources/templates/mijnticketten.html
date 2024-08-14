@@ -45,10 +45,9 @@
       </div>
     </nav>
     <section class="p-8">
-      <h1
-        th:text="${regio.naam}"
-        class="text-center text-2xl uppercase font-semibold mb-5"
-      ></h1>
+      <h1 class="text-center text-2xl uppercase font-semibold mb-5">
+        Mijn Ticketten:
+      </h1>
       <table class="min-w-full leading-normal">
         <thead>
           <tr class="bg-gray-800 text-white">
@@ -75,7 +74,7 @@
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
             >
-              Beschikbare plaatsen
+              Muziekgenre
             </th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
@@ -85,81 +84,52 @@
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
             >
-              Reeds gekochte tickets
-            </th>
-            <th
-              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-              th:if="${#authorization.expression('hasRole(''USER'')') and magKopen}"
-            >
-              Ticket kopen
+              Aantal tickets
             </th>
           </tr>
         </thead>
         <tbody>
           <tr
-            th:each="festival : ${festivals}"
+            th:each="ticket : ${ticketsByUser}"
             class="bg-white hover:bg-gray-100"
           >
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${festival.naam}"
+              th:text="${ticket.festival.naam}"
             ></td>
             <td class="px-5 py-5 border-b border-gray-200 text-sm">
               <span
-                th:text="${#temporals.format(festival.datum, 'dd-MM-yyyy')}"
+                th:text="${#temporals.format(ticket.festival.datum, 'dd-MM-yyyy')}"
               ></span>
               om
               <span
-                th:text="${#temporals.format(festival.aanvangsuur, 'HH:mm')}"
+                th:text="${#temporals.format(ticket.festival.aanvangsuur, 'HH:mm')}"
               ></span>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 text-sm">
               <ul>
-                <li th:each="optreden : ${festival.optredens}">
+                <li th:each="optreden : ${ticket.festival.optredens}">
                   <span th:text="${optreden.naam}"></span> -
                   <span th:text="${optreden.startuur}"></span>
                 </li>
               </ul>
-              <a
-                th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
-                class="text-red-600 font-semibold hover:underline"
-                th:href="@{/wijzigplanning/{festivalId}(festivalId=${festival.id})}"
-              >
-                Wijzig planning</a
-              >
             </td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${festival.regio.naam}"
+              th:text="${ticket.festival.regio.naam}"
             ></td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${festivalService.getBeschikbarePlaatsen(festival)}"
-            ></td>
-            <td class="px-5 py-5 border-b border-gray-200 text-sm">
-              <span
-                th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
-                th:text="${'€ '+festival.prijs}"
-              ></span>
-              <span
-                th:if="${#authorization.expression('hasRole(''USER'')') and festivalService.getBeschikbarePlaatsen(festival) > 0}"
-                th:text="${'€ '+festival.prijs}"
-              ></span>
-            </td>
-            <td
-              class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${ticketService.getNumberOfTicketsPerUserPerFestivalId(user,festival.id)}"
+              th:text="${ticket.festival.genre.naam}"
             ></td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:if="${#authorization.expression('hasRole(''USER'')') and ticketService.magTicketsKopenSpecifiek(user,festival.id) and magKopen}"
-            >
-              <a
-                th:href="@{/ticket/{festivalId}(festivalId=${festival.id})}"
-                class="hover:text-red-600 hover:underline m-0"
-                >Koop ticket</a
-              >
-            </td>
+              th:text="${'€ '+ ticket.festival.prijs}"
+            ></td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 text-sm"
+              th:text="${ticket.aantal}"
+            ></td>
           </tr>
         </tbody>
       </table>

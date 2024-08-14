@@ -27,7 +27,7 @@
           th:if="${#authorization.expression('hasRole(''USER'')') and ticketsByUser.size() > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/home}" class="hover:text-gray-400 m-0"
+          <a th:href="@{/mijnticketten}" class="hover:text-gray-400 m-0"
             >Mijn ticketten</a
           >
         </div>
@@ -87,6 +87,12 @@
             >
               Reeds gekochte tickets
             </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
+              th:if="${#authorization.expression('hasRole(''USER'')') and magKopen}"
+            >
+              Ticket kopen
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -143,8 +149,18 @@
             </td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${ticketService.getNumberOfTicketsPerUserPerFestival(user,festival)}"
+              th:text="${ticketService.getNumberOfTicketsPerUserPerFestivalId(user,festival.id)}"
             ></td>
+            <td
+              class="px-5 py-5 border-b border-gray-200 text-sm"
+              th:if="${#authorization.expression('hasRole(''USER'')') and ticketService.magTicketsKopenSpecifiek(user,festival.id) and magKopen}"
+            >
+              <a
+                th:href="@{/ticket/{festivalId}(festivalId=${festival.id})}"
+                class="hover:text-red-600 hover:underline m-0"
+                >Koop ticket</a
+              >
+            </td>
           </tr>
         </tbody>
       </table>

@@ -426,13 +426,13 @@ public class InitDataConfig implements CommandLineRunner {
                 Ticket ticket3 = Ticket.builder()
                                 .festival(festival3)
                                 .user(user1)
-                                .aantal(1)
+                                .aantal(15)
                                 .build();
 
                 Ticket ticket4 = Ticket.builder()
                                 .festival(festival4)
                                 .user(user1)
-                                .aantal(2)
+                                .aantal(50)
                                 .build();
 
                 Ticket ticket5 = Ticket.builder()
