@@ -23,4 +23,8 @@ public interface FestivalService {
   public void addOptreden(Integer festivalId, NieuwOptreden nieuwOptreden, List<Integer> subgenreIds);
 
   public List<SubGenre> getAllSubGenres(Integer genreId);
+
+  public List<String> getArtiestenPerFestival(Festival festival);
+
+  public List<Festival> getFestivalsByGenreId(Integer genreId);
 }

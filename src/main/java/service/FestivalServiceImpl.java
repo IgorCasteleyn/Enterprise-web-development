@@ -106,4 +106,15 @@ public class FestivalServiceImpl implements FestivalService {
     return subGenreRepository.findAllByGenreId(genreId);
   }
 
+  @Override
+  public List<String> getArtiestenPerFestival(Festival festival) {
+    return festival.getOptredens().stream()
+        .map(Optreden::getNaam)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<Festival> getFestivalsByGenreId(Integer genreId) {
+    return festivalRepository.findAllByGenreId(genreId);
+  }
 }

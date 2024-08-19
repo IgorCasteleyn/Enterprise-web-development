@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import validator.NieuwOptredenValidation;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import perform.PerformRest;
+
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = { "repository" })
 @EntityScan("domein")
@@ -18,6 +20,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ZomerFestivalApp implements WebMvcConfigurer {
   public static void main(String[] args) {
     SpringApplication.run(ZomerFestivalApp.class, args);
+  
+    try {
+			new PerformRest();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
   }
 
   @Override

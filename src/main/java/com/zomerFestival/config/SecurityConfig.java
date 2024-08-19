@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/login**").permitAll()
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/rest/**").permitAll()
                         .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/regio").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/genre").hasAnyRole("USER", "ADMIN")
