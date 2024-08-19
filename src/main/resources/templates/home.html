@@ -27,9 +27,11 @@
           th:if="${#authorization.expression('hasRole(''USER'')') and (ticketsByUser?.size() ?: 0) > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/mijnticketten}" class="hover:text-gray-400 m-0"
-            >Mijn ticketten</a
-          >
+          <a
+            th:href="@{/mijnticketten}"
+            class="hover:text-gray-400 m-0"
+            th:text="#{nav.MijnTicketten}"
+          ></a>
         </div>
 
         <form th:action="@{/logout}" method="post">
@@ -45,9 +47,10 @@
       </div>
     </nav>
     <section class="p-4">
-      <h1 class="text-center text-4xl text-red-500 my-6 uppercase font-bold">
-        Regios
-      </h1>
+      <h1
+        class="text-center text-4xl text-red-500 my-6 uppercase font-bold"
+        th:text="#{home.titel.regios}"
+      ></h1>
       <div class="py-6 flex flex-wrap justify-center">
         <div
           th:each="regio : ${regios}"
@@ -73,9 +76,10 @@
         </div>
       </div>
 
-      <h1 class="text-center text-4xl text-red-500 my-6 uppercase font-bold">
-        Genres
-      </h1>
+      <h1
+        class="text-center text-4xl text-red-500 my-6 uppercase font-bold"
+        th:text="#{home.titel.genres}"
+      ></h1>
       <div class="py-6 flex flex-wrap justify-center">
         <div
           th:each="genre : ${genres}"

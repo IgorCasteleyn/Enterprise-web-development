@@ -27,9 +27,11 @@
           th:if="${#authorization.expression('hasRole(''USER'')') and (ticketsByUser?.size() ?: 0) > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/mijnticketten}" class="hover:text-gray-400 m-0"
-            >Mijn ticketten</a
-          >
+          <a
+            th:href="@{/mijnticketten}"
+            class="hover:text-gray-400 m-0"
+            th:text="#{nav.MijnTicketten}"
+          ></a>
         </div>
 
         <form th:action="@{/logout}" method="post">
@@ -90,19 +92,16 @@
           <tr class="bg-gray-800 text-white">
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Naam
-            </th>
+              th:text="#{tabel.header.naam}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Startuur
-            </th>
+              th:text="#{tabel.header.startuur}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Acties
-            </th>
+              th:text="#{tabel.header.acties}"
+            ></th>
           </tr>
         </thead>
         <tbody>
@@ -131,9 +130,8 @@
                 <button
                   type="submit"
                   class="text-white bg-red-600 p-2 rounded-md transform transition-transform duration-300 hover:scale-110"
-                >
-                  Delete
-                </button>
+                  th:text="#{btn.verwijder}"
+                ></button>
               </form>
             </td>
           </tr>
@@ -152,8 +150,11 @@
           th:value="${_csrf.token}"
         />
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="naam">
-            Naam
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="naam"
+            th:text="#{tabel.header.naam}"
+          >
           </label>
           <div
             th:if="${#fields.hasErrors('naam')}"
@@ -174,8 +175,8 @@
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="startuur"
+            th:text="#{tabel.header.startuur}"
           >
-            Startuur
           </label>
           <div
             th:if="${#fields.hasErrors('startuur')}"
@@ -196,8 +197,8 @@
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="subgenres"
+            th:text="#{tabel.header.subgenres}"
           >
-            Subgenres
           </label>
           <div
             th:if="${#fields.hasErrors('subgenreIds')}"
@@ -217,17 +218,15 @@
               th:each="subGenre : ${subGenres}"
               th:value="${subGenre.id}"
               th:text="${subGenre.naam}"
-            >
-              SubGenre
-            </option>
+            ></option>
           </select>
         </div>
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="festivalNummer1"
+            th:text="#{tabel.header.festNum1}"
           >
-            Festival Nummer 1
           </label>
           <div
             th:if="${#fields.hasErrors('festivalNummer1')}"
@@ -250,8 +249,8 @@
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
             for="festivalNummer2"
+            th:text="#{tabel.header.festNum2}"
           >
-            Festival Nummer 2
           </label>
           <div
             th:if="${#fields.hasErrors('festivalNummer2')}"
@@ -274,9 +273,8 @@
           <button
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
-          >
-            Voeg Optreden Toe
-          </button>
+            th:text="#{btn.voegOptredenToe}"
+          ></button>
         </div>
       </form>
     </section>

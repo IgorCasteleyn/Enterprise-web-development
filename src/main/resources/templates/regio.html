@@ -27,9 +27,11 @@
           th:if="${#authorization.expression('hasRole(''USER'')') and ticketsByUser.size() > 0}"
           class="text-white font-bold text-xl m-0"
         >
-          <a th:href="@{/mijnticketten}" class="hover:text-gray-400 m-0"
-            >Mijn ticketten</a
-          >
+          <a
+            th:href="@{/mijnticketten}"
+            class="hover:text-gray-400 m-0"
+            th:text="#{nav.MijnTicketten}"
+          ></a>
         </div>
 
         <form th:action="@{/logout}" method="post">
@@ -54,45 +56,37 @@
           <tr class="bg-gray-800 text-white">
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Naam
-            </th>
+              th:text="#{tabel.header.naam}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Datum & aanvangsuur
-            </th>
+              th:text="#{tabel.header.datumUur}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Planning
-            </th>
+              th:text="#{tabel.header.planning}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Regio
-            </th>
+              th:text="#{tabel.header.genre}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Beschikbare plaatsen
-            </th>
+              th:text="#{tabel.header.beschikbarePlaatsen}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Prijs
-            </th>
+              th:text="#{tabel.header.prijs}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
-            >
-              Reeds gekochte tickets
-            </th>
+              th:text="#{tabel.header.reedsGekocht}"
+            ></th>
             <th
               class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold uppercase tracking-wider"
               th:if="${#authorization.expression('hasRole(''USER'')') and magKopen}"
-            >
-              Ticket kopen
-            </th>
+              th:text="#{tabel.header.ticketKopen}"
+            ></th>
           </tr>
         </thead>
         <tbody>
@@ -108,7 +102,7 @@
               <span
                 th:text="${#temporals.format(festival.datum, 'dd-MM-yyyy')}"
               ></span>
-              om
+              <span th:text="#{tussenVoegselTijd}"></span>
               <span
                 th:text="${#temporals.format(festival.aanvangsuur, 'HH:mm')}"
               ></span>
@@ -124,13 +118,13 @@
                 th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
                 class="text-red-600 font-semibold hover:underline"
                 th:href="@{/wijzigplanning/{festivalId}(festivalId=${festival.id})}"
+                th:text="#{tabel.content.wijzigPlanning}"
               >
-                Wijzig planning</a
-              >
+              </a>
             </td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
-              th:text="${festival.regio.naam}"
+              th:text="${festival.genre.naam}"
             ></td>
             <td
               class="px-5 py-5 border-b border-gray-200 text-sm"
@@ -157,8 +151,8 @@
               <a
                 th:href="@{/ticket/{festivalId}(festivalId=${festival.id})}"
                 class="hover:text-red-600 hover:underline m-0"
-                >Koop ticket</a
-              >
+                th:text="#{tabel.content.koopTicket}"
+              ></a>
             </td>
           </tr>
         </tbody>
