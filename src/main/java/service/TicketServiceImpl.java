@@ -28,13 +28,16 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public int getNumberOfTicketsPerUserPerFestivalId(User user, int festivalId) {
-    return ticketRepository.countByUserAndFestivalId(user, festivalId);
+    Ticket ticket = ticketRepository.findByUserAndFestivalId(user, festivalId);
+    if (ticket == null) {
+      return 0;
+    }
+    return ticket.getAantal();
   }
 
   @Override
   public int getMaxAantalTicketsByUserByFestival(Festival festival, User user) {
-    int aantal = getNumberOfTicketsPerUserPerFestivalId(user, festival.getId());
-    int max = 15 - aantal;
+    int max = 15 - getNumberOfTicketsPerUserPerFestivalId(user, festival.getId());
     return max;
   }
 
@@ -54,6 +57,12 @@ public class TicketServiceImpl implements TicketService {
       output = true;
     }
     return output;
+  }
+
+  @Override
+  public void saveTicket(User user, Festival festival, int aantalTickets) {
+    Ticket t = Ticket.builder().user(user).festival(festival).aantal(aantalTickets).build();
+    ticketRepository.save(t);
   }
 
 }

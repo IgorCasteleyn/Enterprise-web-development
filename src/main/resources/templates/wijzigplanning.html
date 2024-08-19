@@ -123,6 +123,11 @@
                 th:action="@{/wijzigplanning/{festivalId}/deleteOptreden/{optredenId}(festivalId=${festival.id},optredenId=${optreden.id})}"
                 method="post"
               >
+                <input
+                  type="hidden"
+                  th:name="${_csrf.parameterName}"
+                  th:value="${_csrf.token}"
+                />
                 <button
                   type="submit"
                   class="text-white bg-red-600 p-2 rounded-md transform transition-transform duration-300 hover:scale-110"

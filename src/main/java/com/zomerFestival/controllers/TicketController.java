@@ -11,13 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import domein.*;
 import service.FestivalService;
 import service.TicketService;
 import service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/ticket")
@@ -58,10 +58,11 @@ public class TicketController {
     return "ticket";
   }
 
-  @PostMapping("/{festivalId}/kopen")
-  public String postMethodName(@RequestBody String entity) {
+  @PostMapping("/kopen")
+  public String postMethodName(@RequestParam Integer festivalId, @RequestParam Integer aantalTickets) {
+    ticketService.saveTicket(user, festivalService.getFestivalById(festivalId), aantalTickets);
 
-    return "ticket";
+    return "redirect:/home";
   }
 
 }

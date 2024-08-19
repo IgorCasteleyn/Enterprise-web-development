@@ -45,12 +45,30 @@
       </div>
     </nav>
     <section class="p-8">
-      <p> Dit is festival genaamd <span th:text="${festival.naam}"></span> <br/>
-      Er zijn nog <span th:text="${aantalBeschikbareTickets}"></span> tickets beschikbaar.</p>
-     
-      <form th:action="@{/ticket/{festivalId}(festicalId=${festival.Id})/kopen}" method="post">
-        <input type="number" min="1" th:max="${maxAantalTickets}">
-        <button type="submit" th:text="submit">
+      <p>
+        Dit is festival genaamd <span th:text="${festival.naam}"></span> <br />
+        Er zijn nog <span th:text="${aantalBeschikbareTickets}"></span> tickets
+        beschikbaar.
+      </p>
+
+      <form th:action="@{/ticket/kopen}" method="post">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}"
+        />
+        <input
+          type="hidden"
+          th:name="festivalId"
+          th:value="${festival.id}"
+        />
+        <input
+          type="number"
+          min="1"
+          th:name="aantalTickets"
+          th:max="${maxAantalTickets}"
+        />
+        <button type="submit" th:text="'Submit'"></button>
       </form>
     </section>
   </body>

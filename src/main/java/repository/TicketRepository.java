@@ -14,6 +14,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
   List<Ticket> findAllByFestivalId(Integer festivalId);
 
-  int countByUserAndFestivalId(User user, int festivalId);
+  Ticket findByUserAndFestivalId(User user, int festivalId);
 
 }

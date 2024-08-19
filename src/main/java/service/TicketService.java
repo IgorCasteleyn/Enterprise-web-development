@@ -18,4 +18,6 @@ public interface TicketService {
 
   public boolean magTicketsKopenSpecifiek(User user, int festivalId);
 
+  public void saveTicket(User user, Festival festival,int aantalTickets);
+
 }

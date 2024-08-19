@@ -48,6 +48,7 @@ public class RegioController {
     model.addAttribute("festivalService", festivalService);
     model.addAttribute("ticketService", ticketService);
     model.addAttribute("magKopen", ticketService.magTicketsKopen(user));
+    
  
     return "regio";
   }
