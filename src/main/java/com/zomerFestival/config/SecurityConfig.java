@@ -31,12 +31,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/login**").permitAll()
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/rest/**").permitAll()
                         .requestMatchers("/home").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/regio").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/genre").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/ticket").hasRole("USER")
+                        .requestMatchers("/ticket/**").hasRole("USER")
                         .requestMatchers("/wijzigplanning/**").hasRole("ADMIN")
                         .anyRequest().hasAnyRole("USER", "ADMIN"))
                 .formLogin(form -> form.defaultSuccessUrl("/home", true)

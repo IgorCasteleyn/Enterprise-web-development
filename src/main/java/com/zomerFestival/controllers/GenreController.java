@@ -32,7 +32,7 @@ public class GenreController {
   private GenreService genreService;
 
   @GetMapping("/{genreId}")
-  public String getMethodName(@PathVariable Integer genreId, Model model) {
+  public String getGenreController(@PathVariable Integer genreId, Model model) {
     // TODO:naam veranderen van deze methode en alle andere getmethodenamen
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();

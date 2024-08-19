@@ -59,7 +59,7 @@ public class TicketController {
   }
 
   @PostMapping("/kopen")
-  public String postMethodName(@RequestParam Integer festivalId, @RequestParam Integer aantalTickets) {
+  public String ticketKopen(@RequestParam Integer festivalId, @RequestParam Integer aantalTickets) {
     ticketService.saveTicket(user, festivalService.getFestivalById(festivalId), aantalTickets);
 
     return "redirect:/home";

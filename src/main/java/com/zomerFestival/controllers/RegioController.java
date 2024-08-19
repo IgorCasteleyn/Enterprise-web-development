@@ -32,7 +32,7 @@ public class RegioController {
   private RegioService regioService;
 
   @GetMapping("/{regioId}")
-  public String getMethodName(@PathVariable Integer regioId, Model model) {
+  public String regio(@PathVariable Integer regioId, Model model) {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
