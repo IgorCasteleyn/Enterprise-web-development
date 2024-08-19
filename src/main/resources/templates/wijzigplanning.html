@@ -139,7 +139,7 @@
       </table>
 
       <form
-        th:action="@{/wijzigplanning/{festivalId}/addOptreden(festivalId=${festival.id})}"
+        th:action="@{/wijzigplanning/{festivalId}(festivalId=${festival.id})}"
         th:object="${nieuwOptreden}"
         method="post"
         class="mt-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -172,26 +172,24 @@
           />
         </div>
         <div class="mb-4">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="startuur"
-            th:text="#{tabel.header.startuur}"
-          >
-          </label>
-          <div
-            th:if="${#fields.hasErrors('startuur')}"
-            th:errorclass="error"
-            th:errors="*{startuur}"
-            class="text-red-500 text-xs italic"
-          ></div>
-
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="startuur"
-            name="startuur"
-            th:field="*{startuur}"
-            type="time"
-          />
+          <div>
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="startuur"
+              th:text="#{tabel.header.startuur}"
+            ></label>
+            <div
+              class="text-red-500 text-xs italic"
+              th:if="${#fields.hasErrors('startuur')}"
+              th:errors="*{startuur}"
+            ></div>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="time"
+              id="startuur"
+              th:field="*{startuur}"
+            />
+          </div>
         </div>
         <div class="mb-4">
           <label

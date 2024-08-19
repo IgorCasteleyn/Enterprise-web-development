@@ -36,37 +36,31 @@ public class NieuwOptredenValidation implements Validator {
         }
 
         if (startuur == null) {
-            errors.rejectValue("startuur", "Validation.startuurNull", "Startuur mag niet leeg zijn");
+            errors.rejectValue("startuur", "Validation.startuurNull");
         } else {
             if (startuur.getMinute() != 0 || startuur.getHour() < 10 || startuur.getHour() > 23) {
-                errors.rejectValue("startuur", "Validation.startuurInvalid",
-                        "Startuur moet tussen 10:00 en 23:00 liggen en de minuten moeten 00 zijn");
+                errors.rejectValue("startuur", "Validation.startuurInvalid");
             } else if (optredenRepository.findByStartuur(startuur) != null) {
-                errors.rejectValue("startuur", "Validation.startuurBezet",
-                        "Het gekozen uur is al bezet door een ander optreden");
+                errors.rejectValue("startuur", "Validation.startuurBezet");
             }
         }
 
         if (subgenres != null) {
             if (subgenres.size() > 2) {
-                errors.rejectValue("subgenres", "Validation.subgenresSize",
-                        "Maximum 2 subgenres mogen ingevuld worden");
+                errors.rejectValue("subgenres", "Validation.subgenresSize");
             } else if (subgenres.size() == 2 && subgenres.get(0).equals(subgenres.get(1))) {
-                errors.rejectValue("subgenres", "Validation.subgenresDuplicate", "Twee dezelfde genres mogen niet");
+                errors.rejectValue("subgenres", "Validation.subgenresDuplicate");
             }
         }
 
         if (festivalNummer1 < 1000 || festivalNummer1 > 9999) {
-            errors.rejectValue("festivalNummer1", "Validation.festivalNummer1Invalid",
-                    "Festival-nummer1 moet uit 4 cijfers bestaan tussen 1000 en 9999");
+            errors.rejectValue("festivalNummer1", "Validation.festivalNummer1Invalid");
         } else if (festivalNummer1 % 3 != 0) {
-            errors.rejectValue("festivalNummer1", "Validation.festivalNummer1Multiple",
-                    "Festival-nummer1 moet een veelvoud van 3 zijn");
+            errors.rejectValue("festivalNummer1", "Validation.festivalNummer1Multiple");
         }
 
         if (festivalNummer2 < festivalNummer1 || festivalNummer2 > festivalNummer1 + 1000) {
-            errors.rejectValue("festivalNummer2", "Validation.festivalNummer2Invalid",
-                    "Festival-nummer2 moet groter of gelijk zijn aan festival-nummer1 en niet hoger dan festival-nummer1 + 1000");
+            errors.rejectValue("festivalNummer2", "Validation.festivalNummer2Invalid");
         }
     }
 }

@@ -66,16 +66,22 @@ public class WijzigPlanningController {
     return "redirect:/wijzigplanning/" + festivalId;
   }
 
-  @PostMapping("/{festivalId}/addOptreden")
+  @PostMapping("/{festivalId}")
   public String addOptreden(@PathVariable Integer festivalId,
       @Valid @ModelAttribute("nieuwOptreden") NieuwOptreden nieuwOptreden, BindingResult bindingResult,
       RedirectAttributes redirectAttributes, @RequestParam(defaultValue = "") List<Integer> subgenreIds, Model model) {
     nieuwOptredenValidation.validate(nieuwOptreden, bindingResult);
 
     if (bindingResult.hasErrors()) {
-      System.out.println(bindingResult.getAllErrors());
+      Festival festival = festivalService.getFestivalById(festivalId);
+      model.addAttribute("bindingResult", bindingResult);
+      model.addAttribute("nieuwOptreden", nieuwOptreden);
+      model.addAttribute("subGenres", festivalService.getAllSubGenres(festival.getGenre().getId()));
+      model.addAttribute("festival", festival);
+      model.addAttribute("optredens", festival.getOptredens());
 
-      return "redirect:/wijzigplanning/" + festivalId;
+      System.out.println(bindingResult);
+      return "wijzigplanning";
     }
 
     festivalService.addOptreden(festivalId, nieuwOptreden, subgenreIds);
